@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bhw83igngxkru"]
+
+[ext_resource type="Script" uid="uid://cxrnxq26v6fg5" path="res://Scripts/Checkpoints/checkpoint.gd" id="1_p1qp7"]
+
+[node name="Area2D" type="Area2D" unique_id=1106114195]
+collision_layer = 8
+script = ExtResource("1_p1qp7")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1591950855]
+position = Vector2(0, 5)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

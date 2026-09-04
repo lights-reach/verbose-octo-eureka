@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cbeeejglsw4pb"]
+
+[ext_resource type="Texture2D" uid="uid://brs6j32wl57jl" path="res://Sprites/spikes.png" id="3_yt1fo"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4kpvh"]
+texture = ExtResource("3_yt1fo")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 5.9134264, 0.63404346, -6.016943, 0.6858021)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_yt1fo"]
+physics_layer_0/collision_layer = 4
+sources/2 = SubResource("TileSetAtlasSource_4kpvh")
+
+[node name="Spikes" type="TileMapLayer" unique_id=1847432592]
+texture_filter = 1
+tile_set = SubResource("TileSet_yt1fo")

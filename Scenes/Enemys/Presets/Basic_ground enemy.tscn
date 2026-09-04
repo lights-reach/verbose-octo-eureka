@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cc5ledfcbqal1"]
+
+[ext_resource type="Script" uid="uid://bdovpf0g610k1" path="res://Scripts/Enemies/Presets/basic_ground_enemy.gd" id="1_do0be"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44545"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_do0be"]
+radius = 140.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_do0be"]
+
+[node name="Ground_enemy_preset" type="CharacterBody2D" unique_id=1851560382 groups=["Enemies"]]
+collision_layer = 16
+collision_mask = 274
+script = ExtResource("1_do0be")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1947129485]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0.54901963, 0.54901963, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=615471333]
+shape = SubResource("RectangleShape2D_44545")
+
+[node name="detection circle" type="Area2D" parent="." unique_id=866634976]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection circle" unique_id=249926070]
+scale = Vector2(2, 1)
+shape = SubResource("CircleShape2D_do0be")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=345281453]
+target_position = Vector2(10, 11)
+collision_mask = 2
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=523837884]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=920899531]
+shape = SubResource("RectangleShape2D_do0be")
+
+[connection signal="body_entered" from="detection circle" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="detection circle" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Area2D2" to="." method="_on_area_2d_2_area_entered"]

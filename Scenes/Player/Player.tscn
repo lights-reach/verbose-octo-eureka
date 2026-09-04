@@ -1,0 +1,347 @@
+[gd_scene format=3 uid="uid://cqwa7rxyo5ex6"]
+
+[ext_resource type="Script" uid="uid://b6m1k4fqn5q2b" path="res://Scripts/Player/player.gd" id="1_s0eop"]
+[ext_resource type="Script" uid="uid://kcf8x18g513g" path="res://Scripts/State_machine/state_machine.gd" id="3_4wape"]
+[ext_resource type="Script" uid="uid://2epfxisvordx" path="res://Scripts/Player/States/idle_state.gd" id="4_t26db"]
+[ext_resource type="Script" uid="uid://dwex0kp1ihjtq" path="res://Scripts/Player/States/move_state.gd" id="5_fk5o5"]
+[ext_resource type="Script" uid="uid://cesx6dkuoycmn" path="res://Scripts/Player/States/dash_state.gd" id="6_fk5o5"]
+[ext_resource type="Script" uid="uid://dh8xp7gmwjuba" path="res://Scripts/Player/States/wallslide_state.gd" id="7_825xp"]
+[ext_resource type="Script" uid="uid://58v6a53lmk6e" path="res://Scripts/Player/States/jump_state.gd" id="7_t26db"]
+[ext_resource type="Script" uid="uid://dqbxebyauq8it" path="res://Scripts/Player/States/fall_state.gd" id="9_825xp"]
+[ext_resource type="Script" uid="uid://b08nu38mxnxdu" path="res://Scripts/Player/States/attack_state.gd" id="10_ji083"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3ax4"]
+size = Vector2(10, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h54ih"]
+size = Vector2(10, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft8w5"]
+size = Vector2(57, 28)
+
+[sub_resource type="Animation" id="Animation_s0eop"]
+resource_name = "Attack"
+length = 0.35
+step = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StateMachine/Attack:can_chage_state")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.349647),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_h54ih"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StateMachine/Attack:can_chage_state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ft8w5"]
+resource_name = "meh..."
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h54ih"]
+_data = {
+&"Attack": SubResource("Animation_s0eop"),
+&"RESET": SubResource("Animation_h54ih"),
+&"meh...": SubResource("Animation_ft8w5")
+}
+
+[sub_resource type="Animation" id="Animation_ude3g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:invincible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jmcll"]
+resource_name = "i frames"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.49803922), Color(1, 1, 1, 1), Color(1, 1, 1, 0.49803922), Color(1, 1, 1, 1), Color(1, 1, 1, 0.49803922), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:invincible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wape"]
+_data = {
+&"RESET": SubResource("Animation_ude3g"),
+&"i frames": SubResource("Animation_jmcll")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=1667714653 groups=["Player"]]
+z_index = 2
+collision_mask = 258
+script = ExtResource("1_s0eop")
+movement = 0
+sword_modes = 0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=840892787]
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 6.0
+offset_bottom = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=569605600]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_l3ax4")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=441832561]
+zoom = Vector2(2.3, 2.3)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1405751790]
+position = Vector2(0, 8)
+target_position = Vector2(6.15, 0)
+collision_mask = 2
+
+[node name="RayCast2D2" type="RayCast2D" parent="." unique_id=36793302]
+target_position = Vector2(6.15, 0)
+collision_mask = 2
+
+[node name="Timer" type="Timer" parent="." unique_id=406001540]
+wait_time = 0.125
+one_shot = true
+
+[node name="dashtimer" type="Timer" parent="." unique_id=2120529380]
+wait_time = 0.3
+one_shot = true
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=619843375]
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=804445710]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_h54ih")
+
+[node name="sword" type="Area2D" parent="." unique_id=1032023593]
+collision_layer = 32
+collision_mask = 86
+
+[node name="swordray" type="RayCast2D" parent="sword" unique_id=511416737]
+position = Vector2(0, 8)
+target_position = Vector2(60, 0)
+collision_mask = 2
+
+[node name="swordray2" type="RayCast2D" parent="sword" unique_id=536469769]
+position = Vector2(0, -8)
+target_position = Vector2(60, 0)
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="sword" unique_id=1421852793]
+z_index = 5
+offset_left = 13.0
+offset_top = -14.0
+offset_right = 60.0
+offset_bottom = 14.0
+color = Color(0.4627451, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sword" unique_id=36501287]
+position = Vector2(31.5, 0)
+shape = SubResource("RectangleShape2D_ft8w5")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sword" unique_id=70421832]
+libraries/ = SubResource("AnimationLibrary_h54ih")
+autoplay = &"meh..."
+
+[node name="i_frames_anim" type="AnimationPlayer" parent="." unique_id=645191937]
+libraries/ = SubResource("AnimationLibrary_4wape")
+
+[node name="pogo_timer" type="Timer" parent="." unique_id=144517622]
+wait_time = 0.05
+autostart = true
+
+[node name="Can_dash_timer" type="Timer" parent="." unique_id=1845292128]
+wait_time = 0.15
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." unique_id=102158383 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_4wape")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://kcf8x18g513g"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=43060687 node_paths=PackedStringArray("move_state", "jump_state", "dash_state", "fall_state", "attack_state")]
+script = ExtResource("4_t26db")
+move_state = NodePath("../Move")
+jump_state = NodePath("../Jump")
+dash_state = NodePath("../Dash")
+fall_state = NodePath("../Fall")
+attack_state = NodePath("../Attack")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1946114552 node_paths=PackedStringArray("idle_state", "jump_state", "dash_state", "fall_state", "attack_state")]
+script = ExtResource("5_fk5o5")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+dash_state = NodePath("../Dash")
+fall_state = NodePath("../Fall")
+attack_state = NodePath("../Attack")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=1791943989 node_paths=PackedStringArray("idle_state", "move_state")]
+script = ExtResource("6_fk5o5")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="Wallslide" type="Node" parent="StateMachine" unique_id=135903339 node_paths=PackedStringArray("idle_state", "move_state", "dash_state", "fall_state")]
+script = ExtResource("7_825xp")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+dash_state = NodePath("../Dash")
+fall_state = NodePath("../Fall")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1961933341 node_paths=PackedStringArray("move_state", "idle_state", "dash_state", "fall_state", "attack_state")]
+script = ExtResource("7_t26db")
+move_state = NodePath("../Move")
+idle_state = NodePath("../Idle")
+dash_state = NodePath("../Dash")
+fall_state = NodePath("../Fall")
+attack_state = NodePath("../Attack")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=2083742634 node_paths=PackedStringArray("idle_state", "move_state", "dash_state", "jump_state", "wallslide_state", "attack_state")]
+script = ExtResource("9_825xp")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+dash_state = NodePath("../Dash")
+jump_state = NodePath("../Jump")
+wallslide_state = NodePath("../Wallslide")
+attack_state = NodePath("../Attack")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1019161027 node_paths=PackedStringArray("move_state", "jump_state", "dash_state", "fall_state", "idle_state")]
+script = ExtResource("10_ji083")
+move_state = NodePath("../Move")
+jump_state = NodePath("../Jump")
+dash_state = NodePath("../Dash")
+fall_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://ocd16qaul5be"
+
+[node name="jump_wear_off_timer" type="Timer" parent="." unique_id=1055966912]
+wait_time = 0.1
+one_shot = true
+
+[node name="Dashtimer_reset" type="Timer" parent="." unique_id=1275205329]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="dashtimer" to="." method="_on_dashtimer_timeout"]
+[connection signal="timeout" from="dashtimer" to="StateMachine/Dash" method="_on_dashtimer_timeout"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
+[connection signal="body_entered" from="sword" to="." method="_on_sword_body_entered"]
+[connection signal="body_exited" from="sword" to="." method="_on_sword_body_exited"]
+[connection signal="timeout" from="pogo_timer" to="." method="_on_pogo_timer_timeout"]
+[connection signal="timeout" from="Can_dash_timer" to="." method="_on_can_dash_timer_timeout"]
+[connection signal="timeout" from="jump_wear_off_timer" to="." method="_on_jump_wear_off_timer_timeout"]
+[connection signal="timeout" from="Dashtimer_reset" to="." method="_on_dashtimer_reset_timeout"]

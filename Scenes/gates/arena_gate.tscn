@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://odf6cdqowgl1"]
+
+[ext_resource type="Script" uid="uid://bi3vjpr0hv0ig" path="res://Scripts/Gates/arena_gate.gd" id="1_0h3hb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpbju"]
+
+[node name="Arena_gate" type="StaticBody2D" unique_id=1678207027 groups=["navigation_polygon_source_geometry_group"]]
+collision_layer = 256
+script = ExtResource("1_0h3hb")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=230537189]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.48390365, 0.4860376, 0.67350066, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1549926946]
+shape = SubResource("RectangleShape2D_cpbju")

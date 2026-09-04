@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://4pjrpcewuyrb"]
+
+[ext_resource type="Script" uid="uid://crjg2ekrw3r84" path="res://Scripts/Player/player_ui.gd" id="1_nqcsj"]
+[ext_resource type="Texture2D" uid="uid://ccyiwo55afovr" path="res://Sprites/dash meter lower res.png" id="1_s36ss"]
+[ext_resource type="Texture2D" uid="uid://dbqj58eushmx0" path="res://Sprites/Hpprotodark.png" id="3_h3wt1"]
+[ext_resource type="Texture2D" uid="uid://0vtdpw6afso3" path="res://Sprites/Hpproto.png" id="4_pocnh"]
+
+[node name="PlayerUI" type="CanvasLayer" unique_id=1438377591]
+script = ExtResource("1_nqcsj")
+
+[node name="DashMeter" type="Sprite2D" parent="." unique_id=2089550633]
+texture_filter = 1
+position = Vector2(80, 80)
+scale = Vector2(3, 3)
+texture = ExtResource("1_s36ss")
+hframes = 4
+vframes = 4
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=799556022]
+custom_maximum_size = Vector2(62.54, 54.05)
+offset_left = 150.0
+offset_top = 61.0
+offset_right = 250.0
+offset_bottom = 113.770004
+
+[node name="ColorRect" type="ColorRect" parent="BoxContainer" unique_id=1710599878]
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=567633319]
+offset_right = 40.0
+offset_bottom = 40.0
+fill_mode = 8
+nine_patch_stretch = true
+stretch_margin_left = 11
+texture_under = ExtResource("3_h3wt1")
+texture_progress = ExtResource("4_pocnh")
+tint_under = Color(0.5227242, 0.5227243, 0.5227242, 1)

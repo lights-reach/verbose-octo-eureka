@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://btcu4ahxuj76n"]
+
+[ext_resource type="Script" uid="uid://cvejlb5twyq4l" path="res://Scripts/Enemies/Presets/flying_enemy_preset.gd" id="1_ksrhj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44545"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_do0be"]
+radius = 140.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_do0be"]
+
+[node name="Flying_enemy_preset" type="CharacterBody2D" unique_id=1851560382 groups=["Enemies"]]
+collision_layer = 16
+collision_mask = 274
+script = ExtResource("1_ksrhj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1947129485]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0.54901963, 0.54901963, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=615471333]
+shape = SubResource("RectangleShape2D_44545")
+
+[node name="detection circle" type="Area2D" parent="." unique_id=866634976]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection circle" unique_id=249926070]
+shape = SubResource("CircleShape2D_do0be")
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=523837884]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=920899531]
+shape = SubResource("RectangleShape2D_do0be")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=2125004314 groups=["navigation_polygon_source_geometry_group"]]
+
+[connection signal="body_entered" from="detection circle" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="detection circle" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Area2D2" to="." method="_on_area_2d_2_area_entered"]

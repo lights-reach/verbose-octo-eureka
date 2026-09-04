@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bcx0c7c1c1xlc"]
+
+[ext_resource type="Script" uid="uid://bpi6ocar7o7on" path="res://Scripts/Detectors/player_detector.gd" id="1_walod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpbju"]
+size = Vector2(130, 20)
+
+[node name="player_detector" type="Area2D" unique_id=974933532]
+collision_layer = 512
+script = ExtResource("1_walod")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=317785428]
+shape = SubResource("RectangleShape2D_cpbju")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

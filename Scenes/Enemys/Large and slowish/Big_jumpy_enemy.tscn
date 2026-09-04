@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://iq5q07kytysv"]
+
+[ext_resource type="Script" uid="uid://bkm25lc3ypdol" path="res://Scripts/Enemies/Large and slowish/big_jumpy_enemy.gd" id="1_kp8x0"]
+
+[sub_resource type="Animation" id="Animation_kp8x0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.54901963, 0.54901963, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hk80n"]
+resource_name = "turn_black"
+length = 0.39999999999999997
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0, 0, 0),
+"update": 0,
+"values": [Color(1, 0.54901963, 0.54901963, 1), Color(0, 0, 0, 1), Color(1, 0.54901963, 0.54901963, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yhceu"]
+_data = {
+&"RESET": SubResource("Animation_kp8x0"),
+&"turn_black": SubResource("Animation_hk80n")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44545"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hk80n"]
+radius = 76.22664
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_do0be"]
+
+[node name="big_dashy_enemy" type="CharacterBody2D" unique_id=1851560382 groups=["Enemies"]]
+scale = Vector2(2, 2)
+collision_layer = 16
+collision_mask = 274
+script = ExtResource("1_kp8x0")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1947129485]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0.54901963, 0.54901963, 1)
+
+[node name="anim" type="AnimationPlayer" parent="ColorRect" unique_id=2113694251]
+libraries/ = SubResource("AnimationLibrary_yhceu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=615471333]
+shape = SubResource("RectangleShape2D_44545")
+
+[node name="detection circle" type="Area2D" parent="." unique_id=866634976]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection circle" unique_id=249926070]
+scale = Vector2(2, 1)
+shape = SubResource("CircleShape2D_hk80n")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=345281453]
+target_position = Vector2(10, 11)
+collision_mask = 258
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=523837884]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=920899531]
+shape = SubResource("RectangleShape2D_do0be")
+
+[node name="DashTimer" type="Timer" parent="." unique_id=1862420903]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="detection circle" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="detection circle" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Area2D2" to="." method="_on_area_2d_2_area_entered"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

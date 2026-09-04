@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://py74jbsjpj8w"]
+
+[ext_resource type="Script" uid="uid://dvesrwui02d0k" path="res://Scripts/platforming tools/dash_crystal.gd" id="1_8inwg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpbju"]
+size = Vector2(16, 16)
+
+[node name="Dash_crystal" type="Area2D" unique_id=1572689824]
+collision_layer = 1024
+script = ExtResource("1_8inwg")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1006651404]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(1, 0.30588236, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1766549005]
+shape = SubResource("RectangleShape2D_cpbju")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
