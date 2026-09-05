@@ -10,7 +10,7 @@ static var released_time = 0.08
 var released_timer = 0
 var can_move = true
 var is_dashing = false
-var health = 4
+var health = 5
 var max_health = 4
 var current_dir = "Right"
 static var knockback_forcee = 500
@@ -52,6 +52,7 @@ var term_vel = 350
 @onready var fall_state: State = $StateMachine/Fall
 
 signal switch_state(state: State)
+signal hit(lower_health: bool)
 @onready var swordray: RayCast2D = $sword/swordray
 @onready var swordray_2: RayCast2D = $sword/swordray2
 
@@ -67,6 +68,9 @@ static var coyote_time = 0.1
 var coyote_timer = 0
 static var wall_slide_time = 0.07
 var wall_slide_timer = 0
+var can_hit = true
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#if Globals.player_pos != Vector2.ZERO:
@@ -359,8 +363,6 @@ func _process(_delta: float) -> void:
 	#endregion
 	# --------------------- Health/Damage ------------------------
 	#region
-	for i in max_health:
-		pass
 	
 	
 	if enemy_attacking != null:
@@ -368,28 +370,29 @@ func _process(_delta: float) -> void:
 		#Engine.
 		#if health > 0:
 		if enemy_attacking.name == "Spikes":
-			health -= 1
+			switch_state.emit(idle_state)
 			position = PlayerGlobals.last_checkpoint
 			velocity = Vector2.ZERO
 			is_dashing = false
 			i_frames_anim.play("i frames")
 			invincible = true
-			
+			hit.emit(true)
+			if can_hit == true:
+				health -= 1
+				can_hit = false
 		else:
 			if !invincible:
+				hit.emit(true)
 				var knockback_direction = Vector2(-1, 0.3)
 				if enemy_attacking.position.x > position.x:
 					knockback_direction.x = 1
 					knockback_direction.y = 0.3
 				get_knockback(knockback_direction, knockback_forcee)
-				health -= 1
 				i_frames_anim.play("i frames")
 				invincible = true
-				
-				
-				
-				
-				
+				if can_hit == true:
+					health -= 1
+					can_hit = false
 	#endregion
 	if Input.is_action_just_pressed("Jump"):
 		jump_buffer_timer = jump_buffer_time
@@ -401,49 +404,8 @@ func _process(_delta: float) -> void:
 		wall_slide_timer -= 1 * _delta
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= 1 * _delta
-	animations(current_drawing)
 	move_and_slide()
 	
-func run():
-	pass
-	#if can_move == true:
-	#	if !is_dashing:
-	#		current_drawing = "Walk"
-	#		if dir != 0:
-	#			stop_moving = true
-#				velocity.x = dir * speed
-	#		if dir < 0:
-	#			current_dir = "Left"
-		#		sprites.flip_h = true
-	#		if dir > 0:
-	#			
-	#			current_dir = "Right"
-		#		sprites.flip_h = false
-
-		
-#func dash():
-#	velocity.y = 0
-#	if current_dir == "Left":
-#		if can_change_dash == true:
-#			if (ray.is_colliding() || ray2.is_colliding()) && wall_sliding == true:
-#				dashspeed = -truedashspeed
-#			else:
-#				dashspeed = truedashspeed
-#		can_change_dash = false
-#		velocity.x = -dashspeed
-#	if current_dir == "Right":
-#		if can_change_dash == true:
-#			if (ray.is_colliding() || ray2.is_colliding()) && wall_sliding == true:
-#				dashspeed = -truedashspeed
-#			else:
-#				dashspeed = truedashspeed
-#		can_change_dash = false
-#		velocity.x = dashspeed
-
-func animations(_animation: String):
-	
-	pass
-
 
 func _on_timer_timeout() -> void:
 	can_move = true
@@ -452,9 +414,10 @@ func _on_timer_timeout() -> void:
 func _on_area_2d_2_body_entered(_body: Node2D) -> void:
 	enemies_in_me += 1
 	enemy_attacking = _body
+	can_hit = true
 
 func _on_area_2d_2_body_exited(_body: Node2D) -> void:
-	enemies_in_me += 1
+	enemies_in_me -= 1
 	
 	enemy_attacking = null
 
@@ -496,13 +459,6 @@ func _on_sword_body_exited(_body: Node2D) -> void:
 func _on_pogo_timer_timeout() -> void:
 	can_boost = true
 
-
-
-
-
-
-
-
 func _on_dashtimer_timeout() -> void:
 	can_dash = true
 	dashable = false
@@ -511,3 +467,6 @@ func _on_dashtimer_timeout() -> void:
 
 func _on_dashtimer_reset_timeout() -> void:
 	dashable = true
+
+func heal(hearts):
+	health += hearts

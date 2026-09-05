@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crjg2ekrw3r84" path="res://Scripts/Player/player_ui.gd" id="1_nqcsj"]
 [ext_resource type="Texture2D" uid="uid://ccyiwo55afovr" path="res://Sprites/dash meter lower res.png" id="1_s36ss"]
-[ext_resource type="Texture2D" uid="uid://dbqj58eushmx0" path="res://Sprites/Hpprotodark.png" id="3_h3wt1"]
-[ext_resource type="Texture2D" uid="uid://0vtdpw6afso3" path="res://Sprites/Hpproto.png" id="4_pocnh"]
+[ext_resource type="PackedScene" uid="uid://cjb73qo7bxbqq" path="res://Scenes/Player/heart_container.tscn" id="3_v8xh3"]
 
 [node name="PlayerUI" type="CanvasLayer" unique_id=1438377591]
 script = ExtResource("1_nqcsj")
@@ -16,22 +15,47 @@ texture = ExtResource("1_s36ss")
 hframes = 4
 vframes = 4
 
-[node name="BoxContainer" type="BoxContainer" parent="." unique_id=799556022]
-custom_maximum_size = Vector2(62.54, 54.05)
-offset_left = 150.0
-offset_top = 61.0
-offset_right = 250.0
-offset_bottom = 113.770004
+[node name="BoxContainer" type="HBoxContainer" parent="." unique_id=240901313]
+offset_left = 159.0
+offset_top = 81.0
+offset_right = 419.0
+offset_bottom = 133.77
 
-[node name="ColorRect" type="ColorRect" parent="BoxContainer" unique_id=1710599878]
+[node name="Heart container" parent="BoxContainer" unique_id=1697786069 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=567633319]
-offset_right = 40.0
-offset_bottom = 40.0
-fill_mode = 8
-nine_patch_stretch = true
-stretch_margin_left = 11
-texture_under = ExtResource("3_h3wt1")
-texture_progress = ExtResource("4_pocnh")
-tint_under = Color(0.5227242, 0.5227243, 0.5227242, 1)
+[node name="Heart container2" parent="BoxContainer" unique_id=435300666 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 2
+
+[node name="Heart container3" parent="BoxContainer" unique_id=591038086 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 3
+
+[node name="Heart container4" parent="BoxContainer" unique_id=853204493 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 4
+
+[node name="Heart container5" parent="BoxContainer" unique_id=1840191989 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 5
+
+[node name="Heart container6" parent="BoxContainer" unique_id=658731088 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 6
+
+[node name="Heart container7" parent="BoxContainer" unique_id=20688739 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 7
+
+[node name="Heart container8" parent="BoxContainer" unique_id=981662149 instance=ExtResource("3_v8xh3")]
+custom_minimum_size = Vector2(46.59, 0)
+layout_mode = 2
+heart_container_number = 8

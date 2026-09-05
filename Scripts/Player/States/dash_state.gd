@@ -3,7 +3,6 @@ extends State
 @export var idle_state: State
 @export var move_state: State
 @onready var dashtimer: Timer = $"../../dashtimer"
-@onready var dash_meter: Sprite2D = $"../../CanvasLayer/DashMeter"
 @onready var ray: RayCast2D = $"../../RayCast2D"
 @onready var ray2: RayCast2D = $"../../RayCast2D2"
 static var dash_buffer_time = 0.1

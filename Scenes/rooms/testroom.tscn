@@ -222,3 +222,5 @@ position = Vector2(-816, -397.99997)
 scale = Vector2(12.809697, 6.311308)
 
 [node name="PlayerUI" parent="." unique_id=1438377591 instance=ExtResource("12_0e047")]
+
+[connection signal="hit" from="Player" to="PlayerUI" method="_on_player_hit"]
