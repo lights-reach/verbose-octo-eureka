@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cjb73qo7bxbqq"]
 
 [ext_resource type="Script" uid="uid://brp0d17yyh8md" path="res://Scripts/Player/States/UI/heart_container.gd" id="1_wbqhh"]
-[ext_resource type="Texture2D" uid="uid://cum8wua7vdtrd" path="res://Sprites/hole.png" id="2_wbqhh"]
 [ext_resource type="Texture2D" uid="uid://1bnr18eyavke" path="res://Sprites/heart regrow.png" id="3_3vv7p"]
 [ext_resource type="Texture2D" uid="uid://bbeda11l7liww" path="res://Sprites/slash.png" id="3_mnyrh"]
 [ext_resource type="Script" uid="uid://kcf8x18g513g" path="res://Scripts/State_machine/state_machine.gd" id="3_wbqhh"]
@@ -158,30 +157,6 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_tiqr3"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:heal")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_wbqhh")]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4prla"]
 _data = {
@@ -198,7 +173,7 @@ script = ExtResource("1_wbqhh")
 
 [node name="AnimatedSprite2D" type="Sprite2D" parent="." unique_id=1741248713]
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("2_wbqhh")
+texture = ExtResource("3_wrcn0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D" unique_id=607184561]
 libraries/ = SubResource("AnimationLibrary_4prla")

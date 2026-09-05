@@ -69,7 +69,7 @@ var coyote_timer = 0
 static var wall_slide_time = 0.07
 var wall_slide_timer = 0
 var can_hit = true
-
+var is_pogoing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -114,18 +114,13 @@ func _process(_delta: float) -> void:
 		if !is_on_floor():
 			switch_state.emit(fall_state)
 	if state_machine.active_state == jump_state:
-		if Input.is_action_just_released("Jump") && velocity.y <= 0:
-			velocity.y /= 2
 		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
 			switch_state.emit(dash_state)
 		if velocity.y > 0:
-			if (ray.is_colliding() || ray2.is_colliding()):
-				switch_state.emit(wallslide_state)
-			else:
-				switch_state.emit(fall_state)
+			switch_state.emit(fall_state)
+		if (ray.is_colliding() || ray2.is_colliding()) && jump_buffer_timer > 0:
+			switch_state.emit(wallslide_state)
 	if state_machine.active_state == fall_state:
-		if Input.is_action_just_released("Jump") && velocity.y <= 0:
-			velocity.y /= 2
 		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
 			switch_state.emit(dash_state)
 		if is_on_floor():
@@ -140,6 +135,8 @@ func _process(_delta: float) -> void:
 				switch_state.emit(wallslide_state)
 			else:
 				switch_state.emit(jump_state)
+		if velocity.y > 0:
+			is_pogoing = false
 	if state_machine.active_state == dash_state:
 		if can_dash:
 			if (ray.is_colliding() || ray2.is_colliding()):
@@ -163,6 +160,8 @@ func _process(_delta: float) -> void:
 			if !(ray.is_colliding() || ray2.is_colliding()):
 				switch_state.emit(fall_state)
 	#endregion
+	if !Input.is_action_pressed("Jump") && velocity.y <= 0 && is_pogoing == false:
+		velocity.y /= 1.02
 	# ---------------------Attacking--------------------
 	#region
 	if Input.is_action_just_pressed("Attack"):
@@ -439,6 +438,7 @@ func _on_sword_body_entered(_body: Node2D) -> void:
 			PlayerGlobals.dashes -= 1
 			velocity.y -= 270
 			can_boost = false
+			is_pogoing = true
 	if sword.scale.x == -1:
 		if (!Input.is_action_pressed("Down") && !Input.is_action_pressed("Up")) && (swordray.is_colliding() || swordray_2.is_colliding()):
 			knockback_vel_x = 1 * 100
