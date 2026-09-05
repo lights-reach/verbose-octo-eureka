@@ -21,5 +21,6 @@ func _process(_delta: float) -> void:
 	else:
 		switch_state.emit(empty)
 	if heal == true:
+		current_state = "full"
 		player.heal(1)
 		heal = false

@@ -24,38 +24,46 @@ offset_bottom = 133.77
 [node name="Heart container" parent="BoxContainer" unique_id=1697786069 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 
 [node name="Heart container2" parent="BoxContainer" unique_id=435300666 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 2
 
 [node name="Heart container3" parent="BoxContainer" unique_id=591038086 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 3
 
 [node name="Heart container4" parent="BoxContainer" unique_id=853204493 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 4
 
 [node name="Heart container5" parent="BoxContainer" unique_id=1840191989 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 5
 
 [node name="Heart container6" parent="BoxContainer" unique_id=658731088 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 6
 
 [node name="Heart container7" parent="BoxContainer" unique_id=20688739 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 7
 
 [node name="Heart container8" parent="BoxContainer" unique_id=981662149 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
+heal = false
 heart_container_number = 8

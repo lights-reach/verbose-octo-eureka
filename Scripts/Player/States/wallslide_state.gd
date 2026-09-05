@@ -8,6 +8,7 @@ var jump_height = 21500
 var side_movement = 15000
 var switch_side: String = "Left"
 var switch = true
+var slide_slower
 @onready var ray: RayCast2D = $"../../RayCast2D"
 @onready var ray2: RayCast2D = $"../../RayCast2D2"
 
@@ -22,6 +23,9 @@ func update(_delta: float) -> void:
 func _physics_state(_delta: float) -> void:
 	
 	if Input.get_axis("Left", "Right"):
+		slide_slower = true
+	
+	if slide_slower == true:
 		if Input.is_action_pressed("Down"):
 			get_parent().get_parent().term_vel = 250
 		else:
@@ -60,3 +64,5 @@ func exit_state() -> void:
 				get_parent().get_parent().current_dir = "Left"
 	else:
 		switch = true
+	
+	slide_slower = false

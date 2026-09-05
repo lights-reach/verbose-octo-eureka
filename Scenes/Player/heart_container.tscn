@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cjb73qo7bxbqq"]
 
 [ext_resource type="Script" uid="uid://brp0d17yyh8md" path="res://Scripts/Player/States/UI/heart_container.gd" id="1_wbqhh"]
-[ext_resource type="Texture2D" uid="uid://1bnr18eyavke" path="res://Sprites/heart regrow.png" id="3_3vv7p"]
 [ext_resource type="Texture2D" uid="uid://bbeda11l7liww" path="res://Sprites/slash.png" id="3_mnyrh"]
 [ext_resource type="Script" uid="uid://kcf8x18g513g" path="res://Scripts/State_machine/state_machine.gd" id="3_wbqhh"]
 [ext_resource type="Texture2D" uid="uid://cpujm2y7qxgfw" path="res://Sprites/Hpproto-export.png" id="3_wrcn0"]
@@ -52,7 +51,124 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_cl8t4"]
 resource_name = "Full"
-length = 0.00999999999999999
+length = 0.19999999999999998
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_wrcn0"), ExtResource("3_wrcn0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_y6k08"]
+resource_name = "Healling"
+length = 9.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.15, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_wrcn0"), ExtResource("4_wrcn0"), ExtResource("4_wrcn0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 2, 5]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..:heal")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(9),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_tiqr3"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -63,7 +179,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_wrcn0")]
+"values": [ExtResource("4_wrcn0")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -75,7 +191,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [4]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -87,76 +203,8 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [3]
 }
-
-[sub_resource type="Animation" id="Animation_y6k08"]
-resource_name = "Healling"
-length = 9.4
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3.15, 6, 9.150001, 9.35, 9.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("4_wrcn0"), ExtResource("4_wrcn0"), ExtResource("4_wrcn0"), ExtResource("3_3vv7p"), ExtResource("3_3vv7p"), ExtResource("3_wrcn0")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:vframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 9.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 9.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [4, 1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 3, 6, 9.2),
-"transitions": PackedFloat32Array(1, 1, 1, 0.5),
-"update": 1,
-"values": [0, 2, 5, 8]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("..:heal")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(9.4),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_tiqr3"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4prla"]
 _data = {
@@ -170,17 +218,21 @@ _data = {
 custom_minimum_size = Vector2(40, 0)
 offset_right = 40.0
 script = ExtResource("1_wbqhh")
+heal = true
 
 [node name="AnimatedSprite2D" type="Sprite2D" parent="." unique_id=1741248713]
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("3_wrcn0")
+texture = ExtResource("4_wrcn0")
+hframes = 4
+vframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D" unique_id=607184561]
 libraries/ = SubResource("AnimationLibrary_4prla")
 autoplay = &"Full"
 
-[node name="StateMachine" type="Node" parent="." unique_id=875270635]
+[node name="StateMachine" type="Node" parent="." unique_id=875270635 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_wbqhh")
+initial_state = NodePath("Full")
 metadata/_custom_type_script = "uid://kcf8x18g513g"
 
 [node name="Empty" type="Node" parent="StateMachine" unique_id=1508737237]
