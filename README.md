@@ -1,0 +1,1 @@
+  Repository for a new game I'm working on. Right now it has no name, but I'm sure I'll come up with one eventually. It's going to be a pixel art Metroidvainia (heavily inspired by hollow knight but also, who's isn't?) with my own ideas for mechanics and story thrown into the mix.
