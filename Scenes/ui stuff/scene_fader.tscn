@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bmo07itunxbin"]
+
+[ext_resource type="Script" uid="uid://b8cxltgn08pul" path="res://Scripts/ui stuff/scene_fader.gd" id="1_bcb5r"]
+
+[sub_resource type="Animation" id="Animation_osrbn"]
+resource_name = "Fade in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bcb5r"]
+resource_name = "Fade out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pxilt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ab44y"]
+_data = {
+&"Fade in": SubResource("Animation_osrbn"),
+&"Fade out": SubResource("Animation_bcb5r"),
+&"RESET": SubResource("Animation_pxilt")
+}
+
+[node name="Scene fader" type="CanvasLayer" unique_id=802930676]
+layer = 10
+script = ExtResource("1_bcb5r")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=296834094]
+z_index = 100
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0)
+
+[node name="anim" type="AnimationPlayer" parent="." unique_id=1903552068]
+libraries/ = SubResource("AnimationLibrary_ab44y")

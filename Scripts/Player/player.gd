@@ -3,11 +3,8 @@ extends CharacterBody2D
 var dashes = 4
 @export_range(0, 4) var max_dashes = 1
 static var gravity = 3
-var can_jump = false
 static var sword_buffer_time = 0.15
 var sword_buffer_timer = 0
-static var released_time = 0.08
-var released_timer = 0
 var can_move = true
 var is_dashing = false
 var health = 5
@@ -18,7 +15,6 @@ var knockback_vel_x: int
 var knockback_vel_y: int
 @export var invincible = false
 var stop_moving = false
-var can_get_hit
 var enemies_in_me = 0
 var enemy_attacking = null
 var can_change_dash = true
@@ -26,7 +22,6 @@ var can_boost = true
 static var ray_buffer_time = 0.05
 var ray_buffer_timer = 0.0
 var can_dash = true
-
 var sword_dir: String = "side"
 var wall_sliding = false
 @onready var timer: Timer = $Timer
@@ -50,11 +45,13 @@ var term_vel = 350
 @onready var wallslide_state: State = $StateMachine/Wallslide
 @onready var jump_state: State = $StateMachine/Jump
 @onready var fall_state: State = $StateMachine/Fall
-
+@onready var walking_timer: Timer = $walking_timer
 signal switch_state(state: State)
 signal hit(lower_health: bool)
 @onready var swordray: RayCast2D = $sword/swordray
 @onready var swordray_2: RayCast2D = $sword/swordray2
+
+@onready var cam: Camera2D = $PlayerCamera
 
 @export_enum("Idle", "Walking", "Dashing", "Running") var movement
 @export_enum("Disabled", "All dir", "Reversed", "No pogo") var sword_modes
@@ -70,96 +67,112 @@ static var wall_slide_time = 0.07
 var wall_slide_timer = 0
 var can_hit = true
 var is_pogoing = false
+var paused = false
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#if Globals.player_pos != Vector2.ZERO:
-	#	position = Globals.player_pos
 	PlayerGlobals.number_of_dashes = dashes
+	position = PlayerGlobals.starting_position
+	
 	sword_collider.disabled = true
 	sword_sprite.visible = false
 	hurtbox.monitoring = true
 	can_move = true
-
+	current_dir = PlayerGlobals.room_dir
+	walking_timer.start()
+	if !PlayerGlobals.room_dir == "":
+		movement = "Walking"
+	
 # Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var dir = Input.get_axis("Left", "Right")
+	#var dir = Input.get_axis("Left", "Right")
 	if wall_sliding == false && can_move:
 		if movement == "Idle":
 			velocity.x = 0
 		elif movement == "Walking":
-			velocity.x = dir * speed * _delta
+			if current_dir == "Left" && (Input.is_action_pressed("Left") || PlayerGlobals.can_move == false && PlayerGlobals.room_dir == "Left"):
+				velocity.x = -speed * _delta
+			elif current_dir == "Right" && (Input.is_action_pressed("Right") || PlayerGlobals.can_move == false && PlayerGlobals.room_dir == "Right"):
+				velocity.x = speed * _delta
+			else:
+				velocity.x = 0
 		elif movement == "Dashing":
 			velocity.x = dashspeed * _delta
-		if Input.is_action_pressed("Left") && !state_machine.active_state == dash_state && !Input.is_action_pressed("Right"):
+		if Input.is_action_pressed("Left") && !state_machine.active_state == dash_state && !Input.is_action_pressed("Right") && PlayerGlobals.can_move == true:
 			current_dir = "Left"
-		if Input.is_action_pressed("Right") && !state_machine.active_state == dash_state && !Input.is_action_pressed("Left"):
+		if Input.is_action_pressed("Right") && !state_machine.active_state == dash_state && !Input.is_action_pressed("Left") && PlayerGlobals.can_move == true:
 			current_dir = "Right"
 	#--------------------Change states--------------------------
+	if paused == true:
+		switch_state.emit(idle_state)
+		return
 	#region
-	if state_machine.active_state == idle_state:
-		if Input.get_axis("Left", "Right"):
-			switch_state.emit(move_state)
-		if Input.is_action_just_pressed("Jump"):
-			switch_state.emit(jump_state)
-		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
-			switch_state.emit(dash_state)
-	if state_machine.active_state == move_state:
-		if !Input.get_axis("Left", "Right"):
-			switch_state.emit(idle_state)
-		if Input.is_action_just_pressed("Jump"):
-			switch_state.emit(jump_state)
-		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
-			switch_state.emit(dash_state)
-		if !is_on_floor():
-			switch_state.emit(fall_state)
-	if state_machine.active_state == jump_state:
-		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
-			switch_state.emit(dash_state)
-		if velocity.y > 0:
-			switch_state.emit(fall_state)
-		if (ray.is_colliding() || ray2.is_colliding()) && jump_buffer_timer > 0:
-			await get_tree().create_timer(0.01).timeout
-			switch_state.emit(wallslide_state)
-	if state_machine.active_state == fall_state:
-		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
-			switch_state.emit(dash_state)
-		if is_on_floor():
-			if !Input.get_axis("Left", "Right"):
-				switch_state.emit(idle_state)
-			else:
-				switch_state.emit(move_state)
-		if (ray.is_colliding() || ray2.is_colliding()):
-			switch_state.emit(wallslide_state)
-		if jump_buffer_timer > 0:
-			if wall_slide_timer > 0:
-				switch_state.emit(wallslide_state)
-			else:
-				switch_state.emit(jump_state)
-		if velocity.y > 0:
-			is_pogoing = false
-	if state_machine.active_state == dash_state:
-		if can_dash:
-			if (ray.is_colliding() || ray2.is_colliding()):
-				switch_state.emit(wallslide_state)
+	if PlayerGlobals.can_move == true:
+		if state_machine.active_state == idle_state:
 			if Input.get_axis("Left", "Right"):
 				switch_state.emit(move_state)
-			elif is_on_floor():
+			if Input.is_action_just_pressed("Jump"):
+				switch_state.emit(jump_state)
+			if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
+				switch_state.emit(dash_state)
+		if state_machine.active_state == move_state:
+			if !Input.get_axis("Left", "Right"):
 				switch_state.emit(idle_state)
-			else:
+			if Input.is_action_just_pressed("Jump"):
+				switch_state.emit(jump_state)
+			if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
+				switch_state.emit(dash_state)
+			if !is_on_floor():
 				switch_state.emit(fall_state)
-	if state_machine.active_state == wallslide_state:
-		if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
-			switch_state.emit(dash_state)
-		if is_on_floor():
-			switch_state.emit(idle_state)
-		if !jump_buffer_timer > 0:
-			if Input.is_action_pressed("Left") && current_dir == "Right" && !Input.is_action_pressed("Right"):
-				switch_state.emit(move_state)
-			if Input.is_action_pressed("Right") && current_dir == "Left" && !Input.is_action_pressed("Left"):
-				switch_state.emit(move_state)
-			if !(ray.is_colliding() || ray2.is_colliding()):
+		if state_machine.active_state == jump_state:
+			if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
+				switch_state.emit(dash_state)
+			if velocity.y > 0:
 				switch_state.emit(fall_state)
+			if (ray.is_colliding() || ray2.is_colliding()) && jump_buffer_timer > 0:
+				await get_tree().create_timer(0.01).timeout
+				switch_state.emit(wallslide_state)
+		if state_machine.active_state == fall_state:
+			if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
+				switch_state.emit(dash_state)
+			if is_on_floor():
+				if !Input.get_axis("Left", "Right"):
+					switch_state.emit(idle_state)
+				else:
+					switch_state.emit(move_state)
+			if (ray.is_colliding() || ray2.is_colliding()):
+				switch_state.emit(wallslide_state)
+			if jump_buffer_timer > 0:
+				if wall_slide_timer > 0:
+					switch_state.emit(wallslide_state)
+				else:
+					switch_state.emit(jump_state)
+			if velocity.y > 0:
+				is_pogoing = false
+		if state_machine.active_state == dash_state:
+			if can_dash:
+				if (ray.is_colliding() || ray2.is_colliding()):
+					switch_state.emit(wallslide_state)
+				if Input.get_axis("Left", "Right"):
+					switch_state.emit(move_state)
+				elif is_on_floor():
+					switch_state.emit(idle_state)
+				else:
+					switch_state.emit(fall_state)
+		if state_machine.active_state == wallslide_state:
+			if Input.is_action_just_pressed("dash") && PlayerGlobals.dashes > 0 && dashable:
+				switch_state.emit(dash_state)
+			if is_on_floor():
+				switch_state.emit(idle_state)
+			if !jump_buffer_timer > 0:
+				if Input.is_action_pressed("Left") && current_dir == "Right" && !Input.is_action_pressed("Right"):
+					switch_state.emit(move_state)
+				if Input.is_action_pressed("Right") && current_dir == "Left" && !Input.is_action_pressed("Left"):
+					switch_state.emit(move_state)
+				if !(ray.is_colliding() || ray2.is_colliding()):
+					switch_state.emit(fall_state)
 	#endregion
 	if !Input.is_action_pressed("Jump") && velocity.y <= 0 && is_pogoing == false:
 		velocity.y /= 1.02
@@ -382,10 +395,9 @@ func get_knockback(knockback_dir, knockback_force):
 
 
 func _on_sword_body_entered(_body: Node2D) -> void:
-	if Input.is_action_pressed("Down") && PlayerGlobals.dashes > 0 && can_boost == true && !is_on_floor() && !(ray.is_colliding() || ray2.is_colliding()) && sword_dir == "down":
+	if Input.is_action_pressed("Down") && can_boost == true && !is_on_floor() && !(ray.is_colliding() || ray2.is_colliding()) && sword_dir == "down":
 		if !_body.name == "betatileset":
 			velocity.y = 0
-			PlayerGlobals.dashes -= 1
 			velocity.y -= 270
 			can_boost = false
 			is_pogoing = true
@@ -421,3 +433,7 @@ func _on_dashtimer_reset_timeout() -> void:
 func heal(hearts):
 	print("mayo?")
 	health += hearts
+
+
+func _on_walking_timer_timeout() -> void:
+	PlayerGlobals.can_move = true

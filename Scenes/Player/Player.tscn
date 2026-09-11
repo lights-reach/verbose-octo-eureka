@@ -190,11 +190,6 @@ offset_bottom = 10.0
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_l3ax4")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=441832561]
-zoom = Vector2(2.3, 2.3)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1405751790]
 position = Vector2(0, 8)
 target_position = Vector2(6.15, 0)
@@ -334,6 +329,10 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
+[node name="walking_timer" type="Timer" parent="." unique_id=1158980232]
+wait_time = 0.25
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="dashtimer" to="." method="_on_dashtimer_timeout"]
 [connection signal="timeout" from="dashtimer" to="StateMachine/Dash" method="_on_dashtimer_timeout"]
@@ -345,3 +344,4 @@ one_shot = true
 [connection signal="timeout" from="Can_dash_timer" to="." method="_on_can_dash_timer_timeout"]
 [connection signal="timeout" from="jump_wear_off_timer" to="." method="_on_jump_wear_off_timer_timeout"]
 [connection signal="timeout" from="Dashtimer_reset" to="." method="_on_dashtimer_reset_timeout"]
+[connection signal="timeout" from="walking_timer" to="." method="_on_walking_timer_timeout"]

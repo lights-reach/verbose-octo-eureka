@@ -8,6 +8,7 @@ var just_hit: bool = false
 
 
 func _ready() -> void:
+	visible = true
 	for child in hearts_parent.get_children():
 		hearts_list.append(child)
 	for i in range(hearts_list.size()):

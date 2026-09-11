@@ -7,6 +7,12 @@ extends State
 @export var attack_state: State
 @onready var jump_wear_off_timer: Timer = $"../../jump_wear_off_timer"
 
+@onready var cam: Camera2D = $"../../PlayerCamera"
+
+func enter_state() -> void:
+	cam.position_smoothing_enabled = true
+	cam.position_smoothing_speed = 20
+
 func update(_delta: float) -> void:
 	get_parent().get_parent().movement = "Walking"
 	get_parent().get_parent().sword_modes = "No pogo"

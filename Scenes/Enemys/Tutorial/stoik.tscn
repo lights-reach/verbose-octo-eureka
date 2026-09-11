@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cssunoaf635a4"]
+
+[ext_resource type="Script" uid="uid://ba75nanf1xf12" path="res://Scripts/Enemies/tutorial/stoik.gd" id="1_jo8er"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44545"]
+size = Vector2(20, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_do0be"]
+size = Vector2(20, 13)
+
+[node name="Stoik" type="CharacterBody2D" unique_id=1851560382 groups=["Enemies"]]
+collision_layer = 16
+collision_mask = 274
+script = ExtResource("1_jo8er")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1947129485]
+offset_left = -10.0
+offset_top = -6.47
+offset_right = 10.0
+offset_bottom = 6.1150002
+color = Color(1, 0.54901963, 0.54901963, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=615471333]
+shape = SubResource("RectangleShape2D_44545")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=345281453]
+position = Vector2(9, 4)
+target_position = Vector2(2, 4)
+collision_mask = 2
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=523837884]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=920899531]
+shape = SubResource("RectangleShape2D_do0be")
+
+[node name="Timer" type="Timer" parent="." unique_id=862199513]
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="." unique_id=2086832045]
+one_shot = true
+
+[connection signal="area_entered" from="Area2D2" to="." method="_on_area_2d_2_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

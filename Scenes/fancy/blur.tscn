@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://plpfpdf8gdhw"]
+
+[ext_resource type="Shader" uid="uid://dqfsfo6pcwmus" path="res://shaders/Blur/blur.gdshader" id="1_ai6d4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpbju"]
+shader = ExtResource("1_ai6d4")
+shader_parameter/blur_amount = 1.5
+
+[node name="ColorRect" type="ColorRect" unique_id=2064675118]
+material = SubResource("ShaderMaterial_cpbju")
+offset_right = 40.0
+offset_bottom = 40.0

@@ -3,11 +3,18 @@
 [ext_resource type="Script" uid="uid://crjg2ekrw3r84" path="res://Scripts/Player/player_ui.gd" id="1_nqcsj"]
 [ext_resource type="Texture2D" uid="uid://ccyiwo55afovr" path="res://Sprites/dash meter lower res.png" id="1_s36ss"]
 [ext_resource type="PackedScene" uid="uid://cjb73qo7bxbqq" path="res://Scenes/Player/heart_container.tscn" id="3_v8xh3"]
+[ext_resource type="Script" uid="uid://caaj3mfh04w6j" path="res://Scripts/Player/menus/menus.gd" id="4_h3wt1"]
+[ext_resource type="PackedScene" uid="uid://plpfpdf8gdhw" path="res://Scenes/fancy/blur.tscn" id="5_pocnh"]
+[ext_resource type="Texture2D" uid="uid://dau0bqf6vy1k4" path="res://Sprites/empty charm slot.png" id="6_msvkv"]
+[ext_resource type="Script" uid="uid://dqu32kwoh8ubo" path="res://Scripts/Player/menus/charm_ui.gd" id="6_ovxsg"]
+[ext_resource type="Texture2D" uid="uid://cyfp7yceqrbuy" path="res://Sprites/charm notches.png" id="8_rmhtn"]
 
 [node name="PlayerUI" type="CanvasLayer" unique_id=1438377591]
+process_mode = 3
 script = ExtResource("1_nqcsj")
 
 [node name="DashMeter" type="Sprite2D" parent="." unique_id=2089550633]
+process_mode = 1
 texture_filter = 1
 position = Vector2(80, 80)
 scale = Vector2(3, 3)
@@ -16,6 +23,7 @@ hframes = 4
 vframes = 4
 
 [node name="BoxContainer" type="HBoxContainer" parent="." unique_id=240901313]
+process_mode = 1
 offset_left = 159.0
 offset_top = 81.0
 offset_right = 419.0
@@ -67,3 +75,287 @@ custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 8
+
+[node name="Menus" type="Node2D" parent="." unique_id=600544945]
+process_mode = 3
+script = ExtResource("4_h3wt1")
+
+[node name="ColorRect2" parent="Menus" unique_id=2064675118 instance=ExtResource("5_pocnh")]
+offset_right = 1151.0
+offset_bottom = 647.0
+
+[node name="ColorRect" type="ColorRect" parent="Menus" unique_id=1396108492]
+offset_left = 135.0
+offset_top = 71.0
+offset_right = 1017.0
+offset_bottom = 578.0
+color = Color(0.21960784, 0.21960784, 0.21960784, 0.8117647)
+
+[node name="Charm UI" type="Node2D" parent="Menus" unique_id=2106221300]
+process_priority = 3
+position = Vector2(0, -1)
+script = ExtResource("6_ovxsg")
+
+[node name="ColorRect" type="ColorRect" parent="Menus/Charm UI" unique_id=1345961383]
+offset_left = 577.0
+offset_top = 255.0
+offset_right = 1019.0
+offset_bottom = 341.0
+scale = Vector2(-1, 1)
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="ColorRect2" type="ColorRect" parent="Menus/Charm UI" unique_id=1287973230]
+offset_left = 577.0
+offset_top = 255.0
+offset_right = 1016.0
+offset_bottom = 341.0
+color = Color(1, 1, 1, 0.09411765)
+
+[node name="Sprite2D" type="Sprite2D" parent="Menus/Charm UI" unique_id=780424156]
+position = Vector2(577, 189)
+scale = Vector2(2, 2)
+texture = ExtResource("1_s36ss")
+hframes = 4
+vframes = 4
+
+[node name="Label" type="Label" parent="Menus/Charm UI" unique_id=1201617471]
+offset_left = 134.0
+offset_top = 112.0
+offset_right = 1016.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 26
+text = "Lightshroom"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Menus/Charm UI" unique_id=1846233456]
+offset_left = 134.0
+offset_top = 226.0
+offset_right = 1016.0
+offset_bottom = 318.0
+text = "Increases healing speed"
+horizontal_alignment = 1
+
+[node name="Darkside" type="Node2D" parent="Menus/Charm UI" unique_id=1540550235]
+position = Vector2(-21, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1787415643]
+position = Vector2(251, 374)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1563877217]
+position = Vector2(307, 422)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=612157130]
+position = Vector2(251, 470)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1802023094]
+position = Vector2(307, 518)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1547150103]
+position = Vector2(363, 374)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=807295350]
+position = Vector2(419, 422)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=149542279]
+position = Vector2(363, 470)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=64555281]
+position = Vector2(419, 518)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D10" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=696505202]
+position = Vector2(475, 374)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D11" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1738284437]
+position = Vector2(531, 422)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D12" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=268099883]
+position = Vector2(475, 470)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D13" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1661427226]
+position = Vector2(531, 518)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Dark charm notch leader" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=840457004]
+position = Vector2(346, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Dark charm notch" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=2005017524]
+position = Vector2(514, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Dark charm notch2" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=346304401]
+position = Vector2(458, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Dark charm notch3" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1454260499]
+position = Vector2(402, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Dark charm notch4" type="Sprite2D" parent="Menus/Charm UI/Darkside" unique_id=1580115429]
+position = Vector2(570, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Lightside" type="Node2D" parent="Menus/Charm UI" unique_id=1697458930]
+position = Vector2(-5, 0)
+
+[node name="Sprite2D14" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=575621599]
+position = Vector2(699, 374)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D15" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=128847585]
+position = Vector2(643, 422)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D16" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1911780430]
+position = Vector2(699, 470)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D17" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=614588753]
+position = Vector2(643, 518)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D18" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1027812574]
+position = Vector2(755, 422)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D19" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=706661652]
+position = Vector2(811, 374)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D20" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=277783382]
+position = Vector2(755, 518)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D21" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=964049318]
+position = Vector2(811, 470)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D22" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1005947905]
+position = Vector2(867, 422)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D23" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1438978197]
+position = Vector2(923, 374)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D24" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1110356751]
+position = Vector2(867, 518)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Sprite2D25" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=68639546]
+position = Vector2(923, 470)
+scale = Vector2(4, 4)
+texture = ExtResource("6_msvkv")
+
+[node name="Light charm notch Leader" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=534138056]
+position = Vector2(834, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="Light charm notch2" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1452667112]
+position = Vector2(778, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="Light charm notch3" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=1696975972]
+position = Vector2(722, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="Light charm notch4" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=216595469]
+position = Vector2(666, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="Light charm notch5" type="Sprite2D" parent="Menus/Charm UI/Lightside" unique_id=967705148]
+position = Vector2(610, 299)
+scale = Vector2(4, 4)
+texture = ExtResource("8_rmhtn")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Menus/Charm UI" unique_id=1275154491]
+offset_left = 571.0
+offset_top = 255.0
+offset_right = 583.0
+offset_bottom = 341.0
+color = Color(0.37000585, 0.050308898, 0.14766172, 1)
+
+[node name="Timer" type="Timer" parent="Menus/Charm UI" unique_id=1892089357]
+wait_time = 0.1
+one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="Menus/Charm UI" unique_id=1387193613]
+position = Vector2(137, 298)
+
+[node name="Marker2D2" type="Marker2D" parent="Menus/Charm UI" unique_id=161757415]
+position = Vector2(1016, 292)
+
+[connection signal="timeout" from="Menus/Charm UI/Timer" to="Menus/Charm UI" method="_on_timer_timeout"]
