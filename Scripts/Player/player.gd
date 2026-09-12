@@ -68,30 +68,40 @@ var wall_slide_timer = 0
 var can_hit = true
 var is_pogoing = false
 var paused = false
-
-
+static var jump_height = 21500
+var release_jump = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerGlobals.number_of_dashes = dashes
 	position = PlayerGlobals.starting_position
-	
+	gravity = 3
 	sword_collider.disabled = true
 	sword_sprite.visible = false
 	hurtbox.monitoring = true
 	can_move = true
 	current_dir = PlayerGlobals.room_dir
 	walking_timer.start()
+	current_dir = PlayerGlobals.player_dir
 	if !PlayerGlobals.room_dir == "":
 		movement = "Walking"
-	
 # Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if PlayerGlobals.starting_state == "Jumping":
+		release_jump = true
+		if PlayerGlobals.room_dir == "Right Jump":
+			current_dir = "Right"
+			velocity.y = (-jump_height * 2) * _delta
+			velocity.x = speed * _delta
+		if PlayerGlobals.room_dir == "Left Jump":
+			current_dir = "Left"
+			velocity.y = (-jump_height * 2) * _delta
+			velocity.x = -speed * _delta
 	#var dir = Input.get_axis("Left", "Right")
 	if wall_sliding == false && can_move:
 		if movement == "Idle":
 			velocity.x = 0
-		elif movement == "Walking":
+		elif movement == "Walking" && PlayerGlobals.starting_state != "Jumping":
 			if current_dir == "Left" && (Input.is_action_pressed("Left") || PlayerGlobals.can_move == false && PlayerGlobals.room_dir == "Left"):
 				velocity.x = -speed * _delta
 			elif current_dir == "Right" && (Input.is_action_pressed("Right") || PlayerGlobals.can_move == false && PlayerGlobals.room_dir == "Right"):
@@ -174,7 +184,7 @@ func _process(_delta: float) -> void:
 				if !(ray.is_colliding() || ray2.is_colliding()):
 					switch_state.emit(fall_state)
 	#endregion
-	if !Input.is_action_pressed("Jump") && velocity.y <= 0 && is_pogoing == false:
+	if !Input.is_action_pressed("Jump") && velocity.y <= 0 && is_pogoing == false && release_jump == false:
 		velocity.y /= 1.02
 	# ---------------------Attacking--------------------
 	#region
@@ -339,7 +349,6 @@ func _process(_delta: float) -> void:
 				is_dashing = false
 				i_frames_anim.play("i frames")
 				invincible = true
-				print(health)
 				hit.emit(true)
 				can_hit = false
 		else:
@@ -431,9 +440,11 @@ func _on_dashtimer_reset_timeout() -> void:
 	dashable = true
 
 func heal(hearts):
-	print("mayo?")
 	health += hearts
 
 
 func _on_walking_timer_timeout() -> void:
 	PlayerGlobals.can_move = true
+	PlayerGlobals.room_dir = ""
+	PlayerGlobals.starting_state = ""
+	release_jump = false
