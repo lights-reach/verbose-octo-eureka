@@ -10,10 +10,9 @@ signal switch_state(state: State)
 
 var current_state = "full"
 
-func _ready() -> void:
-	player = get_tree().get_first_node_in_group("Player")
-
 func _process(_delta: float) -> void:
+	if player == null:
+		player = get_tree().get_first_node_in_group("Player")
 	if current_state == "full":
 		switch_state.emit(full)
 	elif current_state == "grow":

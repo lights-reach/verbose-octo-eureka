@@ -216,7 +216,7 @@ shape = SubResource("RectangleShape2D_h54ih")
 
 [node name="sword" type="Area2D" parent="." unique_id=1032023593]
 collision_layer = 32
-collision_mask = 86
+collision_mask = 2134
 
 [node name="swordray" type="RayCast2D" parent="sword" unique_id=511416737]
 position = Vector2(0, 8)

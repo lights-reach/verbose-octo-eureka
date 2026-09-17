@@ -20,22 +20,27 @@ func _ready() -> void:
 		hearts_list.append(child)
 	for i in range(hearts_list.size()):
 		hearts_list[i].visible = i < player.health
+		
 	
 func _process(_delta: float) -> void:
-	label2.text = str("+", PlayerGlobals.money - player_cash)
-	label.text = str(player_cash)
-	if player_cash != PlayerGlobals.money:
-		if tween_running == false && adjust_number == true:
-			twang = create_tween()
-			
-		label2.visible = true
-	else:
-		label2.visible = false
-	if adjust_number == true:
-		tween_money(twang)
-	
-	# dash meter
-	#region
+	if SceneFader.changing_scenes == false:
+		if player != null:
+			if player.connect("hit", _on_player_hit):
+				_on_player_hit(1)
+		label2.text = str("+", PlayerGlobals.money - player_cash)
+		label.text = str(player_cash)
+		if player_cash != PlayerGlobals.money:
+			if tween_running == false && adjust_number == true:
+				twang = create_tween()
+				
+			label2.visible = true
+		else:
+			label2.visible = false
+		if adjust_number == true:
+			tween_money(twang)
+		
+		# dash meter
+		#region
 	if PlayerGlobals.number_of_dashes == 0:
 		dash_meter.visible = false
 	elif PlayerGlobals.number_of_dashes == 1:
