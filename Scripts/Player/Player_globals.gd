@@ -7,6 +7,7 @@ var max_health = 5
 var max_charm_notches = 10
 var dark_charm_notches = 5
 var light_charm_notches = 5
+var money: int = 1000
 
 var room_dir: String
 var can_move: bool = true

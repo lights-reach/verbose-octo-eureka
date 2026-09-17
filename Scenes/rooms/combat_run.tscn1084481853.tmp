@@ -89,109 +89,109 @@ direction = "Right"
 player_position = Vector2(-100, 22)
 
 [node name="RigidBody2D" parent="." unique_id=1423390870 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D2" parent="." unique_id=390544939 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D3" parent="." unique_id=1042263604 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D4" parent="." unique_id=1818194412 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D5" parent="." unique_id=244631257 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D6" parent="." unique_id=1297179799 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D7" parent="." unique_id=755896346 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D8" parent="." unique_id=2120359527 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D9" parent="." unique_id=1487904789 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D10" parent="." unique_id=2108481727 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D11" parent="." unique_id=1652520371 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D12" parent="." unique_id=472312314 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D13" parent="." unique_id=285432235 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D14" parent="." unique_id=1688878706 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D15" parent="." unique_id=670908143 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D16" parent="." unique_id=2122603348 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D17" parent="." unique_id=1657441598 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D18" parent="." unique_id=587177345 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D19" parent="." unique_id=456502116 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D20" parent="." unique_id=1867204132 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D21" parent="." unique_id=1401798024 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D22" parent="." unique_id=926324966 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D23" parent="." unique_id=1528759196 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D24" parent="." unique_id=790240859 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D25" parent="." unique_id=947830130 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D26" parent="." unique_id=1448693372 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D27" parent="." unique_id=95660308 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D28" parent="." unique_id=1445390526 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D29" parent="." unique_id=606903361 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D30" parent="." unique_id=1474560096 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D31" parent="." unique_id=1735703998 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D32" parent="." unique_id=1665769598 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D33" parent="." unique_id=958518161 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D34" parent="." unique_id=1469742810 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D35" parent="." unique_id=2140052153 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)
 
 [node name="RigidBody2D36" parent="." unique_id=904642134 instance=ExtResource("8_h3kmu")]
-position = Vector2(967, 0)
+position = Vector2(180, -29)

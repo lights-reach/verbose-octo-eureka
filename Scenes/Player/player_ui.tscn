@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://crjg2ekrw3r84" path="res://Scripts/Player/player_ui.gd" id="1_nqcsj"]
 [ext_resource type="Texture2D" uid="uid://ccyiwo55afovr" path="res://Sprites/dash meter lower res.png" id="1_s36ss"]
+[ext_resource type="Texture2D" uid="uid://p8k3hgd2jvfi" path="res://Sprites/coin.png" id="2_e88pc"]
+[ext_resource type="FontFile" uid="uid://cbrixboxu06bo" path="res://Sprites/NormalFont.ttf" id="3_pljam"]
 [ext_resource type="PackedScene" uid="uid://cjb73qo7bxbqq" path="res://Scenes/Player/heart_container.tscn" id="3_v8xh3"]
 [ext_resource type="Script" uid="uid://caaj3mfh04w6j" path="res://Scripts/Player/menus/menus.gd" id="4_h3wt1"]
 [ext_resource type="PackedScene" uid="uid://plpfpdf8gdhw" path="res://Scenes/fancy/blur.tscn" id="5_pocnh"]
@@ -9,11 +11,83 @@
 [ext_resource type="Script" uid="uid://dqu32kwoh8ubo" path="res://Scripts/Player/menus/charm_ui.gd" id="6_ovxsg"]
 [ext_resource type="Texture2D" uid="uid://cyfp7yceqrbuy" path="res://Sprites/charm notches.png" id="8_rmhtn"]
 
+[sub_resource type="Animation" id="Animation_wie2t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ddssi"]
+resource_name = "idle"
+length = 10.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 9.5, 9.6, 9.7, 9.8, 9.900001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rnir7"]
+_data = {
+&"RESET": SubResource("Animation_wie2t"),
+&"idle": SubResource("Animation_ddssi")
+}
+
 [node name="PlayerUI" type="CanvasLayer" unique_id=1438377591]
 process_mode = 3
 script = ExtResource("1_nqcsj")
 
-[node name="DashMeter" type="Sprite2D" parent="." unique_id=2089550633]
+[node name="Health and CORE" type="Node2D" parent="." unique_id=1915955275]
+
+[node name="Label" type="Label" parent="Health and CORE" unique_id=638835261]
+offset_left = 169.0
+offset_top = 160.0
+offset_right = 242.0
+offset_bottom = 205.0
+theme_override_colors/font_color = Color(0.4849202, 0.4849202, 0.4849202, 1)
+theme_override_font_sizes/font_size = 32
+text = "+130"
+
+[node name="Timer" type="Timer" parent="Health and CORE/Label" unique_id=835674393]
+wait_time = 0.75
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Health and CORE" unique_id=129048595]
+position = Vector2(146, 137)
+scale = Vector2(3, 3)
+texture = ExtResource("2_e88pc")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Health and CORE/Sprite2D" unique_id=46029663]
+libraries/ = SubResource("AnimationLibrary_rnir7")
+autoplay = &"idle"
+
+[node name="Label" type="Label" parent="Health and CORE/Sprite2D" unique_id=1929889889]
+offset_left = 9.0
+offset_top = -12.666667
+offset_right = 190.0
+offset_bottom = 10.333333
+theme_override_fonts/font = ExtResource("3_pljam")
+text = "I hate this font"
+
+[node name="DashMeter" type="Sprite2D" parent="Health and CORE" unique_id=2089550633]
 process_mode = 1
 texture_filter = 1
 position = Vector2(80, 80)
@@ -22,55 +96,55 @@ texture = ExtResource("1_s36ss")
 hframes = 4
 vframes = 4
 
-[node name="BoxContainer" type="HBoxContainer" parent="." unique_id=240901313]
+[node name="BoxContainer" type="HBoxContainer" parent="Health and CORE" unique_id=240901313]
 process_mode = 1
 offset_left = 159.0
 offset_top = 81.0
-offset_right = 419.0
+offset_right = 563.0
 offset_bottom = 133.77
 
-[node name="Heart container" parent="BoxContainer" unique_id=1697786069 instance=ExtResource("3_v8xh3")]
+[node name="Heart container" parent="Health and CORE/BoxContainer" unique_id=1697786069 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 
-[node name="Heart container2" parent="BoxContainer" unique_id=435300666 instance=ExtResource("3_v8xh3")]
+[node name="Heart container2" parent="Health and CORE/BoxContainer" unique_id=435300666 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 2
 
-[node name="Heart container3" parent="BoxContainer" unique_id=591038086 instance=ExtResource("3_v8xh3")]
+[node name="Heart container3" parent="Health and CORE/BoxContainer" unique_id=591038086 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 3
 
-[node name="Heart container4" parent="BoxContainer" unique_id=853204493 instance=ExtResource("3_v8xh3")]
+[node name="Heart container4" parent="Health and CORE/BoxContainer" unique_id=853204493 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 4
 
-[node name="Heart container5" parent="BoxContainer" unique_id=1840191989 instance=ExtResource("3_v8xh3")]
+[node name="Heart container5" parent="Health and CORE/BoxContainer" unique_id=1840191989 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 5
 
-[node name="Heart container6" parent="BoxContainer" unique_id=658731088 instance=ExtResource("3_v8xh3")]
+[node name="Heart container6" parent="Health and CORE/BoxContainer" unique_id=658731088 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 6
 
-[node name="Heart container7" parent="BoxContainer" unique_id=20688739 instance=ExtResource("3_v8xh3")]
+[node name="Heart container7" parent="Health and CORE/BoxContainer" unique_id=20688739 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
 heart_container_number = 7
 
-[node name="Heart container8" parent="BoxContainer" unique_id=981662149 instance=ExtResource("3_v8xh3")]
+[node name="Heart container8" parent="Health and CORE/BoxContainer" unique_id=981662149 instance=ExtResource("3_v8xh3")]
 custom_minimum_size = Vector2(46.59, 0)
 layout_mode = 2
 heal = false
@@ -78,6 +152,7 @@ heart_container_number = 8
 
 [node name="Menus" type="Node2D" parent="." unique_id=600544945]
 process_mode = 3
+visible = false
 script = ExtResource("4_h3wt1")
 
 [node name="ColorRect2" parent="Menus" unique_id=2064675118 instance=ExtResource("5_pocnh")]
@@ -358,4 +433,5 @@ position = Vector2(137, 298)
 [node name="Marker2D2" type="Marker2D" parent="Menus/Charm UI" unique_id=161757415]
 position = Vector2(1016, 292)
 
+[connection signal="timeout" from="Health and CORE/Label/Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Menus/Charm UI/Timer" to="Menus/Charm UI" method="_on_timer_timeout"]

@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://cbeeejglsw4pb" path="res://Scenes/tilesets/spikes.tscn" id="2_hjun6"]
 [ext_resource type="PackedScene" uid="uid://cqwa7rxyo5ex6" path="res://Scenes/Player/Player.tscn" id="3_h3xw3"]
 [ext_resource type="PackedScene" uid="uid://bd2yrnhrjw8hk" path="res://Scenes/Player/player_camera.tscn" id="4_h3xw3"]
-[ext_resource type="PackedScene" uid="uid://4pjrpcewuyrb" path="res://Scenes/Player/player_ui.tscn" id="4_p45s5"]
 [ext_resource type="PackedScene" uid="uid://ctdfvrsesupls" path="res://Scenes/detectors/scene_transition.tscn" id="6_p45s5"]
 
 [node name="Tutorial_3" type="Node2D" unique_id=982911954]
@@ -22,9 +21,6 @@ limit_left = -152
 limit_top = -483
 limit_right = 124
 limit_bottom = 91
-
-[node name="PlayerUI" parent="." unique_id=1438377591 instance=ExtResource("4_p45s5")]
-visible = false
 
 [node name="Scene_transition2" parent="." unique_id=1372998596 instance=ExtResource("6_p45s5")]
 position = Vector2(-48, 55)

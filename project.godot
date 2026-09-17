@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PlayerGlobals="*uid://n5sy8pj1xueg"
 SceneFader="*uid://bmo07itunxbin"
+PlayerUi="*uid://4pjrpcewuyrb"
 
 [display]
 

@@ -73,6 +73,7 @@ var release_jump = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	PlayerUi.player_cash = PlayerGlobals.money
 	PlayerGlobals.number_of_dashes = dashes
 	position = PlayerGlobals.starting_position
 	gravity = 3
